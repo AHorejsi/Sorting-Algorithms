@@ -4,40 +4,15 @@
 #include <iterator>
 #include <functional>
 #include <stdexcept>
+#include <algorithm>
 
 namespace sort {
 	enum class selection_sort_type { NORMAL, STABLE, DOUBLE };
 
 	template<typename Iterator, typename Compare>
-	Iterator _find_min(Iterator first, Iterator last, const Compare comp) {
-		Iterator min = first;
-
-		for (Iterator i = std::next(first); i != last; ++i) {
-			if (comp(*i, *min)) {
-				min = i;
-			}
-		}
-
-		return min;
-	}
-
-	template<typename Iterator, typename Compare>
-	Iterator _find_max(Iterator first, Iterator last, const Compare comp) {
-		Iterator max = first;
-
-		for (Iterator i = std::next(first); i != last; ++i) {
-			if (comp(*max, *i)) {
-				max = i;
-			}
-		}
-
-		return max;
-	}
-
-	template<typename Iterator, typename Compare>
 	void _normal_selection_sort(Iterator first, Iterator last, const Compare comp) {
 		for (Iterator i = first; i != last; ++i) {
-			Iterator min = _find_min(i, last, comp);
+			Iterator min = std::min_element(i, last, comp);
 
 			if (min != i) {
 				std::iter_swap(min, i);
@@ -59,7 +34,7 @@ namespace sort {
 	template<typename Iterator, typename Compare>
 	void _stable_selection_sort(Iterator first, Iterator last, const Compare comp) {
 		for (Iterator i = first; i != last; ++i) {
-			Iterator min = _find_min(i, last, comp);
+			Iterator min = std::min_element(i, last, comp);
 
 			if (min != i) {
 				_stable_swap(i, min);
@@ -75,18 +50,17 @@ namespace sort {
 		Iterator high = last;
 
 		for (typename std::iterator_traits<Iterator>::difference_type index = 0; index < end; ++index) {
-			Iterator min = _find_min(low, high, comp);
-			Iterator max = _find_max(low, high, comp);
+			std::pair<Iterator, Iterator> minmax = std::minmax_element(low, high, comp);
 
 			Iterator beforeHigh = std::prev(high);
 
-			std::iter_swap(low, min);
+			std::iter_swap(low, minmax.first);
 
-			if (comp(*max, *min)) {
-				std::iter_swap(min, beforeHigh);
+			if (comp(*minmax.second, *minmax.first)) {
+				std::iter_swap(minmax.first, beforeHigh);
 			}
 			else {
-				std::iter_swap(max, beforeHigh);
+				std::iter_swap(minmax.second, beforeHigh);
 			}
 
 			++low;
