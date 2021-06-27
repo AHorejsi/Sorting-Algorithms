@@ -5,19 +5,23 @@
 #include <functional>
 
 namespace sort {
-	template<typename RandomAccessIterator>
-	typename std::iterator_traits<RandomAccessIterator>::difference_type _next_gap(typename std::iterator_traits<RandomAccessIterator>::difference_type gap) {
-		gap = gap * 10 / 13;
+	namespace _utils {
+		template<typename RandomAccessIterator>
+		typename std::iterator_traits<RandomAccessIterator>::difference_type _next_gap(typename std::iterator_traits<RandomAccessIterator>::difference_type gap) {
+			gap = gap * 10 / 13;
 
-		if (gap < 1) {
-			gap = 1;
+			if (gap < 1) {
+				gap = 1;
+			}
+
+			return gap;
 		}
-
-		return gap;
 	}
 
 	template<typename RandomAccessIterator, typename Compare>
 	void comb_sort(RandomAccessIterator first, RandomAccessIterator last, const Compare comp) {
+		using namespace _utils;
+
 		typename std::iterator_traits<RandomAccessIterator>::difference_type gap = last - first;
 		bool swapped = true;
 

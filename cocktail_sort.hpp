@@ -5,45 +5,49 @@
 #include <functional>
 
 namespace sort {
-	template<typename BidirectionalIterator, typename Compare>
-	bool _bubble_up(BidirectionalIterator first, BidirectionalIterator last, const Compare comp) {
-		bool swapped = false;
+	namespace _utils {
+		template<typename BidirectionalIterator, typename Compare>
+		bool _bubble_up(BidirectionalIterator first, BidirectionalIterator last, const Compare comp) {
+			bool swapped = false;
 
-		for (BidirectionalIterator i = first; i != last; ++i) {
-			BidirectionalIterator j = std::next(i);
+			for (BidirectionalIterator i = first; i != last; ++i) {
+				BidirectionalIterator j = std::next(i);
 
-			if (comp(*j, *i)) {
-				std::iter_swap(i, j);
-				swapped = true;
+				if (comp(*j, *i)) {
+					std::iter_swap(i, j);
+					swapped = true;
+				}
 			}
+
+			return swapped;
 		}
 
-		return swapped;
-	}
+		template<typename BidirectionalIterator, typename Compare>
+		bool _bubble_down(BidirectionalIterator first, BidirectionalIterator last, const Compare comp) {
+			bool swapped = false;
 
-	template<typename BidirectionalIterator, typename Compare>
-	bool _bubble_down(BidirectionalIterator first, BidirectionalIterator last, const Compare comp) {
-		bool swapped = false;
+			for (BidirectionalIterator i = std::prev(last); i != first; --i) {
+				BidirectionalIterator j = std::next(i);
 
-		for (BidirectionalIterator i = std::prev(last); i != first; --i) {
-			BidirectionalIterator j = std::next(i);
-
-			if (comp(*j, *i)) {
-				std::iter_swap(i, j);
-				swapped = true;
+				if (comp(*j, *i)) {
+					std::iter_swap(i, j);
+					swapped = true;
+				}
 			}
-		}
 
-		BidirectionalIterator nextFirst = std::next(first);
-		if (comp(*nextFirst, *first)) {
-			std::iter_swap(first, nextFirst);
-		}
+			BidirectionalIterator nextFirst = std::next(first);
+			if (comp(*nextFirst, *first)) {
+				std::iter_swap(first, nextFirst);
+			}
 
-		return swapped;
+			return swapped;
+		}
 	}
 
 	template<typename BidirectionalIterator, typename Compare>
 	void cocktail_sort(BidirectionalIterator first, BidirectionalIterator last, const Compare comp) {
+		using namespace _utils;
+
 		bool swapped;
 		--last;
 
