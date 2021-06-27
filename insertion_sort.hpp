@@ -6,6 +6,8 @@
 #include <stdexcept>
 
 namespace sort {
+	enum class searcher { LINEAR, BINARY, JUMP };
+
 	namespace _utils {
 		template<typename Iterator, typename Compare>
 		Iterator _linear_search(Iterator first, Iterator last, const Compare comp) {
@@ -100,8 +102,6 @@ namespace sort {
 			}
 		}
 	}
-
-	enum class searcher { LINEAR, BINARY, JUMP };
 
 	template<typename Iterator, typename Compare>
 	void insertion_sort(Iterator first, Iterator last, const searcher searchType, const Compare comp) {
