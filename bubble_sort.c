@@ -1,10 +1,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
-#include <stdio.h>
-#include "sort_utils.h"
 #include "bubble_sort.h"
 
-void bubble_sort(void* arr, const size_t count, const size_t elemSize, int(*comp)(const void*, const void*)) {
+void bubble_sort(void* arr, const size_t count, const size_t elemSize, const comparator_t comp) {
     size_t endIndex = count - 1;
     char* ptr = (char*)arr;
     char* endPtr = ptr + (endIndex * elemSize);
@@ -30,7 +28,7 @@ void bubble_sort(void* arr, const size_t count, const size_t elemSize, int(*comp
     free(buffer);
 }
 
-bool _bubble_up(char* lowPtr, char* highPtr, const size_t elemSize, int(*comp)(const void*, const void*), void* buffer) {
+bool _bubble_up(char* lowPtr, char* highPtr, const size_t elemSize, const comparator_t comp, void* buffer) {
     bool swapped = false;
 
     for (char* current = lowPtr; current < highPtr; current += elemSize) {
@@ -45,7 +43,7 @@ bool _bubble_up(char* lowPtr, char* highPtr, const size_t elemSize, int(*comp)(c
     return swapped;
 }
 
-bool _bubble_down(char* lowPtr, char* highPtr, const size_t elemSize, int(*comp)(const void*, const void*), void* buffer) {
+bool _bubble_down(char* lowPtr, char* highPtr, const size_t elemSize, const comparator_t comp, void* buffer) {
     bool swapped = false;
 
     for (char* current = highPtr - elemSize; current >= lowPtr; current -= elemSize) {
@@ -60,7 +58,7 @@ bool _bubble_down(char* lowPtr, char* highPtr, const size_t elemSize, int(*comp)
     return swapped;
 }
 
-void cocktail_sort(void* arr, const size_t count, const size_t elemSize, int(*comp)(const void*, const void*)) {
+void cocktail_sort(void* arr, const size_t count, const size_t elemSize, const comparator_t comp) {
     char* lowPtr = (char*)arr;
     char* highPtr = lowPtr + elemSize * (count - 1);
     void* buffer = malloc(elemSize);
@@ -81,7 +79,7 @@ void cocktail_sort(void* arr, const size_t count, const size_t elemSize, int(*co
     free(buffer);
 }
 
-bool _bubble_up_even_indices(char* lowPtr, char* highPtr, const size_t elemSize, int(*comp)(const void*, const void*), void* buffer) {
+bool _bubble_up_even_indices(char* lowPtr, char* highPtr, const size_t elemSize, const comparator_t comp, void* buffer) {
     bool isSortedOnEvenIndices = true;
     size_t increase = elemSize + elemSize;
     char* endPtr = highPtr - increase;
@@ -98,7 +96,7 @@ bool _bubble_up_even_indices(char* lowPtr, char* highPtr, const size_t elemSize,
     return isSortedOnEvenIndices;
 }
 
-bool _bubble_up_odd_indices(char* lowPtr, char* highPtr, const size_t elemSize, int(*comp)(const void*, const void*), void* buffer) {
+bool _bubble_up_odd_indices(char* lowPtr, char* highPtr, const size_t elemSize, const comparator_t comp, void* buffer) {
     bool isSortedOnOddIndices = true;
     size_t increase = elemSize + elemSize;
     char* endPtr = highPtr - increase;
@@ -123,7 +121,7 @@ void print(int* arr, const size_t count) {
     puts("\n");
 }
 
-void brick_sort(void* arr, const size_t count, const size_t elemSize, int(*comp)(const void*, const void*)) {
+void brick_sort(void* arr, const size_t count, const size_t elemSize, const comparator_t comp) {
     char* lowPtr = (char*)arr;
     char* highPtr = lowPtr + elemSize * count;
     void* buffer = malloc(elemSize);
@@ -148,7 +146,7 @@ size_t _next_gap(const size_t gap) {
     return nextGap;
 }
 
-void comb_sort(void* arr, const size_t count, const size_t elemSize, int(*comp)(const void*, const void*)) {
+void comb_sort(void* arr, const size_t count, const size_t elemSize, const comparator_t comp) {
     char* lowPtr = (char*)arr;
     char* highPtr = lowPtr + elemSize * count;
     void* buffer = malloc(elemSize);

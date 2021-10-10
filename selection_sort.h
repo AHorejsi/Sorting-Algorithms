@@ -3,12 +3,13 @@
 
 
 #include <stddef.h>
+#include "sort_utils.h"
 
-void selection_sort(void*, const size_t, const size_t, int(*)(const void*, const void*));
+void selection_sort(void*, const size_t, const size_t, const comparator_t);
 
-void stable_selection_sort(void*, const size_t, const size_t, int(*)(const void*, const void*));
+void stable_selection_sort(void*, const size_t, const size_t, const comparator_t);
 
-void double_selection_sort(void*, const size_t, const size_t, int(*)(const void*, const void*));
+void double_selection_sort(void*, const size_t, const size_t, const comparator_t);
 
 
 #endif

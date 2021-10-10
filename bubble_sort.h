@@ -3,14 +3,15 @@
 
 
 #include <stddef.h>
+#include "sort_utils.h"
 
-void bubble_sort(void*, const size_t, const size_t, int(*)(const void*, const void*));
+void bubble_sort(void*, const size_t, const size_t, const comparator_t);
 
-void cocktail_sort(void*, const size_t, const size_t, int(*)(const void*, const void*));
+void cocktail_sort(void*, const size_t, const size_t, const comparator_t);
 
-void brick_sort(void*, const size_t, const size_t, int(*)(const void*, const void*));
+void brick_sort(void*, const size_t, const size_t, const comparator_t);
 
-void comb_sort(void*, const size_t, const size_t, int(*)(const void*, const void*));
+void comb_sort(void*, const size_t, const size_t, const comparator_t);
 
 
 #endif
