@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include <stdio.h>
 #include "bogo_sort.h"
 
 void bogo_sort(void* arr, const size_t count, const size_t elemSize, const comparator_t comp, const shuffler_t shuffler) {
@@ -33,7 +32,6 @@ void _next_permutation(char* lowPtr, char* highPtr, const size_t elemSize, const
             ptr1 -= elemSize;
 
             if (comp(ptr1, ptr2) < 0) {
-                puts("TEST1\n");
                 char* ptr3 = highPtr;
 
                 do {
@@ -45,7 +43,6 @@ void _next_permutation(char* lowPtr, char* highPtr, const size_t elemSize, const
                 break;
             }
             if (ptr1 == lowPtr) {
-                puts("TEST2\n");
                 _reverse(lowPtr, highPtr, elemSize, buffer);
                 break;
             }
