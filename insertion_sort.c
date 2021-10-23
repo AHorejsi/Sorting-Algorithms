@@ -1,6 +1,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include "insertion_sort.h"
 
 char* linear_search(char* lowPtr, char* highPtr, const size_t elemSize, const comparator_t comp) {
@@ -45,10 +46,6 @@ char* binary_search(char* lowPtr, char* highPtr, const size_t elemSize, const co
     return _do_binary_search(lowPtr, highPtr, highPtr, elemSize, comp);
 }
 
-size_t _min(const size_t first, const size_t second) {
-    return second ^ ((first ^ second) & -(first < second));
-}
-
 char* exponential_search(char* lowPtr, char* highPtr, const size_t elemSize, const comparator_t comp) {
     if (0 == comp(lowPtr, highPtr)) {
         return lowPtr;
@@ -61,7 +58,7 @@ char* exponential_search(char* lowPtr, char* highPtr, const size_t elemSize, con
         index += index;
     }
 
-    return _do_binary_search(lowPtr + (index / 2) * elemSize, lowPtr + _min(index, count) * elemSize, highPtr, elemSize, comp);
+    return _do_binary_search(lowPtr + (index / 2) * elemSize, lowPtr + minimum(index, count) * elemSize, highPtr, elemSize, comp);
 }
 
 void insertion_sort(void* arr, const size_t count, const size_t elemSize, const comparator_t comp, const searcher_t searcher) {

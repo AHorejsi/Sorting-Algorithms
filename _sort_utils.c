@@ -21,3 +21,7 @@ bool is_sorted(void* arr, const size_t count, const size_t elemSize, const compa
 
     return true;
 }
+
+size_t minimum(const size_t first, const size_t second) {
+    return second ^ ((first ^ second) & -(first < second));
+}
