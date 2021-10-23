@@ -1,9 +1,14 @@
-#ifndef SORT_UTILS_H
-#define SORT_UTILS_H
+#ifndef _SORT_UTILS_H
+#define _SORT_UTILS_H
 
 
 #include <stddef.h>
 #include <stdbool.h>
+
+typedef struct range_array {
+    char* lowPtr;
+    char* highPtr;
+} range_array_t;
 
 typedef int(*comparator_t)(const void*, const void*);
 
