@@ -1,7 +1,5 @@
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
 #include "merge_sort.h"
 
 range_array_t _make_subarray(char* lowPtr, char* highPtr, const size_t elemSize) {
