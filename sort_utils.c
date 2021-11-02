@@ -1,5 +1,5 @@
 #include <string.h>
-#include "_sort_utils.h"
+#include "sort_utils.h"
 
 void swap(void* a, void* b, const size_t elemSize, void* buffer) {
     memcpy(buffer, b, elemSize);

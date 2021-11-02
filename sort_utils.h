@@ -7,6 +7,9 @@
 
 typedef int(*comparator_t)(const void*, const void*);
 
+typedef enum algorithm_type { ITERATIVE, RECURSIVE } algorithm_type_t;
+typedef enum execution_type { SYNC, ASYNC } execution_type_t;
+
 typedef struct range_array {
     char* lowPtr;
     char* highPtr;

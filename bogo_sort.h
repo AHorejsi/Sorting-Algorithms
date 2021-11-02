@@ -3,7 +3,7 @@
 
 
 #include <stddef.h>
-#include "_sort_utils.h"
+#include "sort_utils.h"
 
 typedef void(*shuffler_t)(void*, const size_t, const size_t, void*);
 

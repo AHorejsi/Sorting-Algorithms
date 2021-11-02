@@ -2,7 +2,7 @@
 #define MERGE_SORT_H
 
 
-#include "_sort_utils.h"
+#include "sort_utils.h"
 
 typedef void(*merger_t)(char*, char*, char*, const size_t, const comparator_t);
 
