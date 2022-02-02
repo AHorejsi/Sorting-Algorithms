@@ -2,7 +2,7 @@
 #include <string.h>
 #include "merge_sort.h"
 
-range_array_t _make_subarray(char* lowPtr, char* highPtr, const size_t elemSize) {
+range_array_t _make_subarray(char* lowPtr, char* highPtr) {
     size_t subSize = highPtr - lowPtr;
     char* subArr = (char*)malloc(subSize);
     memcpy(subArr, lowPtr, subSize);
@@ -13,8 +13,8 @@ range_array_t _make_subarray(char* lowPtr, char* highPtr, const size_t elemSize)
 }
 
 void merge(char* lowPtr, char* midPtr, char* highPtr, const size_t elemSize, const comparator_t comp) {
-    range_array_t leftArr = _make_subarray(lowPtr, midPtr, elemSize);
-    range_array_t rightArr = _make_subarray(midPtr, highPtr, elemSize);
+    range_array_t leftArr = _make_subarray(lowPtr, midPtr);
+    range_array_t rightArr = _make_subarray(midPtr, highPtr);
 
     char* leftPtr = leftArr.lowPtr;
     char* rightPtr = rightArr.lowPtr;
@@ -33,19 +33,8 @@ void merge(char* lowPtr, char* midPtr, char* highPtr, const size_t elemSize, con
         ptr += elemSize;
     }
 
-    while (leftPtr != leftArr.highPtr) {
-        memcpy(ptr, leftPtr, elemSize);
-
-        leftPtr += elemSize;
-        ptr += elemSize;
-    }
-
-    while (rightPtr != rightArr.highPtr) {
-        memcpy(ptr, rightPtr, elemSize);
-
-        rightPtr += elemSize;
-        ptr += elemSize;
-    }
+    memcpy(ptr, leftPtr, leftArr.highPtr - leftPtr);
+    memcpy(ptr, rightPtr, rightArr.highPtr - rightPtr);
 
     free(leftArr.lowPtr);
     free(rightArr.lowPtr);

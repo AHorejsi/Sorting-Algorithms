@@ -1,8 +1,8 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include "heap_sort.h"
+#include "insertion_sort.h"
 #include "intro_sort.h"
 
 #define SIMPLE_SORT_LIMIT 16
@@ -50,29 +50,11 @@ char* _partition(char* lowPtr, char* highPtr, const size_t elemSize, const compa
     }
 }
 
-void _insert_sort(char* lowPtr, char* highPtr, const size_t elemSize, const comparator_t comp, void* swapBuffer) {
-    for (char* ptr1 = lowPtr + elemSize; ptr1 != highPtr; ptr1 += elemSize) {
-        memcpy(swapBuffer, ptr1, elemSize);
-        char* ptr2 = ptr1;
-
-        while (comp(ptr2 - elemSize, ptr2) > 0) {
-            memcpy(ptr2 - elemSize, ptr2, elemSize);
-            ptr2 -= elemSize;
-
-            if (ptr1 == ptr2) {
-                break;
-            }
-        }
-
-        memcpy(ptr2, swapBuffer, elemSize);
-    }
-}
-
 void _intro_sort_util(char* lowPtr, char* highPtr, const size_t elemSize, const comparator_t comp, void* swapBuffer, void* pivotBuffer, size_t depthLimit) {
     size_t count = ((highPtr - lowPtr) / elemSize) + 1;
 
     if (count <= SIMPLE_SORT_LIMIT) {
-        _insert_sort(lowPtr, highPtr + elemSize, elemSize, comp, swapBuffer);
+        insertion_sort(lowPtr, count, elemSize, comp, linear_search);
     }
     else if (0 == depthLimit) {
         binary_heap_sort(lowPtr, count, elemSize, comp);

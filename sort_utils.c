@@ -25,3 +25,11 @@ bool is_sorted(void* arr, const size_t count, const size_t elemSize, const compa
 size_t minimum(const size_t first, const size_t second) {
     return second ^ ((first ^ second) & -(first < second));
 }
+
+size_t maximum(const size_t first, const size_t second) {
+    return first ^ ((first ^ second) & -(first < second));
+}
+
+int double_compare(const void* left, const void* right) {
+    return *(double*)left < *(double*)right;
+}

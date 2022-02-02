@@ -113,14 +113,6 @@ bool _bubble_up_odd_indices(char* lowPtr, char* highPtr, const size_t elemSize, 
     return isSortedOnOddIndices;
 }
 
-void print(int* arr, const size_t count) {
-    for (size_t index = 0; index < count; ++index) {
-        printf("%d ", arr[index]);
-    }
-
-    puts("\n");
-}
-
 void brick_sort(void* arr, const size_t count, const size_t elemSize, const comparator_t comp) {
     char* lowPtr = (char*)arr;
     char* highPtr = lowPtr + elemSize * count;
